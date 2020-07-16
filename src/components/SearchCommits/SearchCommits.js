@@ -22,7 +22,7 @@ const SearchCommits = () => {
         const rateLimit = await axios.get(`https://api.github.com/rate_limit`);
         setRate(rateLimit.data.rate);
       } catch (error) {
-        alert(error);
+        addNotification('Error!', `${ error }`, 'danger', 'top', 'center', 'fadeIn', 'fadeOut', 4000);
       }
     })();
   }, []);
@@ -66,7 +66,7 @@ const SearchCommits = () => {
         setIsFetching(false);
       }
     } catch (error) {
-      alert(error);
+      addNotification('Error!', `${ error }`, 'danger', 'top', 'center', 'fadeIn', 'fadeOut', 4000);
     }
   }
 
