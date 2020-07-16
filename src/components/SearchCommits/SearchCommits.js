@@ -4,15 +4,19 @@ import './SearchCommits.scss';
 
 import axios from 'axios';
 
+import Spinner from '../Spinner/Spinner';
+
 const SearchCommits = () => {
   const [combinedCommitsArray, setCombinedCommitsArray] = useState([]);
   const [repoDetails, setRepoDetails] = useState({ owner: '', repo: '' });
+  const [isFetching, setIsFetching] = useState(false);
 
   const allCommits = [];
 
   const handleSubmit = async e => {
     e.preventDefault();
 
+    setIsFetching(true);
     const commits = await axios.get(`https://api.github.com/repos/${ repoDetails.owner }/${ repoDetails.repo }/commits?page=1&per_page=100`);
 
     if (commits.headers.link) {
@@ -24,8 +28,11 @@ const SearchCommits = () => {
       }
 
       setCombinedCommitsArray([...allCommits.flat()]);
+      setIsFetching(false);
     } else {
+      setIsFetching(true);
       setCombinedCommitsArray([...commits.data]);
+      setIsFetching(false);
     }
   }
 
@@ -45,11 +52,13 @@ const SearchCommits = () => {
         </form>
       </div>
 
-      <div className='commits-container'>
-        { combinedCommitsArray.length ? <div>This repo has a total of { combinedCommitsArray.length } commits.</div> : null }
-
-        { combinedCommitsArray.map((commit, index) => <div key={ index } className='commit'>{ commit.commit.message }</div>) }
-      </div>
+      {
+        isFetching ? <Spinner /> :
+          <div className='commits-container'>
+            { combinedCommitsArray.length ? <div>This repo has a total of { combinedCommitsArray.length } commits.</div> : null }
+            { combinedCommitsArray.map((commit, index) => <div key={ index } className='commit'>{ commit.commit.message }</div>) }
+          </div>
+      }
     </div>
   )
 }
