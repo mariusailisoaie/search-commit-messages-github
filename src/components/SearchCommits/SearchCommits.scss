@@ -1,0 +1,38 @@
+.container {
+  .form-container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+
+    form {
+      display: flex;
+      justify-content: space-evenly;
+
+      input {
+        width: 43%;
+        font-size: 16px;
+        color: #fff;
+        padding-bottom: 10px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+      }
+    }
+  }
+
+  .commits-container {
+    width: 50%;
+    margin: 30px auto;
+
+    .commit {
+      width: 100%;
+      margin: 10px 0 20px 0;
+      padding: 50px;
+      border: 1px white solid;
+    }
+  }
+}
