@@ -5,6 +5,7 @@ import './SearchCommits.scss';
 import { addNotification } from '../../utils/notifications.utils';
 
 import axios from 'axios';
+import ms from 'ms';
 
 import Spinner from '../Spinner/Spinner';
 
@@ -90,7 +91,17 @@ const SearchCommits = () => {
         isFetching ? <Spinner /> :
           <div className='commits-container'>
             { combinedCommitsArray.length ? <div>This repo has a total of { combinedCommitsArray.length } commits.</div> : null }
-            { combinedCommitsArray.map((commit, index) => <div key={ index } className='commit'>{ commit.commit.message }</div>) }
+            {
+              combinedCommitsArray.map((commit, index) =>
+                <div key={ index } className='commit'>
+                  <div className='commit-message'>{ commit.commit.message }</div>
+                  <div className='author-and-time'>
+                    <img src={ commit.author.avatar_url } className='author-avatar' alt='avatar' />
+                    <div className='commit-time'>{ commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
+                  </div>
+                </div>
+              )
+            }
           </div>
       }
     </div>
