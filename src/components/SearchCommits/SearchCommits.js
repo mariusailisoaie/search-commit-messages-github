@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const SearchCommits = () => {
   const [combinedCommitsArray, setCombinedCommitsArray] = useState([]);
-  const [repoDetails, setRepoDetails] = useState({ owner: 'mariusailisoaie', repo: 'crwn-clothing' });
+  const [repoDetails, setRepoDetails] = useState({ owner: '', repo: '' });
 
   const allCommits = [];
 
@@ -39,8 +39,8 @@ const SearchCommits = () => {
     <div className='container'>
       <div className='form-container'>
         <form onSubmit={ handleSubmit }>
-          <input onChange={ handleChange } type='text' name='owner' placeholder='Owner' />
-          <input onChange={ handleChange } type='text' name='repo' placeholder='Repo' />
+          <input onChange={ handleChange } type='text' name='owner' placeholder='Owner' required />
+          <input onChange={ handleChange } type='text' name='repo' placeholder='Repo' required />
           <input type='submit' value='Submit' hidden />
         </form>
       </div>
