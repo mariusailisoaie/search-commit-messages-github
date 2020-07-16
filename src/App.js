@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SearchCommits from './components/SearchCommits';
+import SearchCommits from './components/SearchCommits/SearchCommits';
 
 function App() {
   return (
