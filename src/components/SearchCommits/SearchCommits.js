@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchCommitsStart } from '../../actions/commitsActions';
 
 import './SearchCommits.scss';
 
@@ -108,4 +110,8 @@ const SearchCommits = () => {
   )
 }
 
-export default SearchCommits;
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(null, mapDispatchToProps)(SearchCommits);
