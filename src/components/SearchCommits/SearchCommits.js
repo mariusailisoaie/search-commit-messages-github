@@ -96,8 +96,8 @@ const SearchCommits = () => {
                 <div key={ index } className='commit'>
                   <div className='commit-message'>{ commit.commit.message }</div>
                   <div className='author-and-time'>
-                    <img src={ commit.author.avatar_url } className='author-avatar' alt='avatar' />
-                    <div className='commit-time'>{ commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
+                    <img src={ commit.author && commit.author.avatar_url } className='author-avatar' alt='avatar' />
+                    <div className='commit-time'>{ commit.author && commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
                   </div>
                 </div>
               )
