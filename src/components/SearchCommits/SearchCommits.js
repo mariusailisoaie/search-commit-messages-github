@@ -4,33 +4,24 @@ import './SearchCommits.scss';
 
 import { addNotification } from '../../utils/notifications.utils';
 
-import axios from 'axios';
 import ms from 'ms';
 
 import Spinner from '../Spinner/Spinner';
 
-const SearchCommits = ({ fetchCommitsStartAsync, isFetching, commits }) => {
+const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFetching, commits, rateLimit }) => {
   const [repoDetails, setRepoDetails] = useState({ owner: '', repo: '' });
-  const [rate, setRate] = useState({});
 
   useEffect(() => {
-    (async () => {
-      try {
-        const rateLimit = await axios.get(`https://api.github.com/rate_limit`);
-        setRate(rateLimit.data.rate);
-      } catch (error) {
-        addNotification('Error!', `${ error }`, 'danger', 'top', 'center', 'fadeIn', 'fadeOut', 4000);
-      }
-    })();
-  }, []);
+    fetchRateLimitStartAsync();
+  }, [fetchRateLimitStartAsync]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (rate.remaining === 0) {
+    if (rateLimit.rate.remaining === 0) {
       addNotification(
         `API rate limit exceeded`,
-        `Unable to make more requests! Please try again in ${ new Date(new Date(rate.reset * 1000) - Date.now()).getMinutes() } minutes.`,
+        `Unable to make more requests! Please try again in ${ new Date(new Date(rateLimit.rate.reset * 1000) - Date.now()).getMinutes() } minutes.`,
         'danger',
         'top',
         'center',
