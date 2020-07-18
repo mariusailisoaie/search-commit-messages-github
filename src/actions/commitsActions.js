@@ -17,7 +17,6 @@ export const fetchCommitsFailure = error => ({
 });
 
 export const fetchCommitsStartAsync = ({ owner, repo }) => {
-  console.log('log: fetchCommitsStartAsync -> owner, repo', owner, repo);
   const allCommits = [];
 
   return async dispatch => {
@@ -34,9 +33,9 @@ export const fetchCommitsStartAsync = ({ owner, repo }) => {
           allCommits.push(commitsPerPage.data);
         }
 
-        dispatch(fetchCommitsSuccess(...allCommits.flat()));
+        dispatch(fetchCommitsSuccess([...allCommits.flat()]));
       } else {
-        dispatch(fetchCommitsSuccess(...commits.data));
+        dispatch(fetchCommitsSuccess([...commits.data]));
       }
     } catch (error) {
       dispatch(fetchCommitsFailure(error));

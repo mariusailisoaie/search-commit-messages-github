@@ -14,7 +14,6 @@ import ms from 'ms';
 import Spinner from '../Spinner/Spinner';
 
 const SearchCommits = ({ fetchCommitsStartAsync, isFetching, commits }) => {
-  console.log('log: SearchCommits -> commits', commits);
   const [repoDetails, setRepoDetails] = useState({ owner: '', repo: '' });
   const [rate, setRate] = useState({});
 
