@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import ReactNotification from 'react-notifications-component';
-import SearchCommits from './components/SearchCommits/SearchCommits';
+import SearchCommitsContainer from './containers/SearchCommitsContainer';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
 
       <h1>Search commit messages on github</h1>
 
-      <SearchCommits />
+      <SearchCommitsContainer />
     </div>
   );
 }

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 
 import './SearchCommits.scss';
 
 import { addNotification } from '../../utils/notifications.utils';
-import { createStructuredSelector } from 'reselect';
-import { fetchCommitsStartAsync } from '../../actions/commitsActions';
-import { areCommitsFetchingSelector, getCommitsSelector } from '../../selectors/commitsSelector';
 
 import axios from 'axios';
 import ms from 'ms';
@@ -86,13 +82,4 @@ const SearchCommits = ({ fetchCommitsStartAsync, isFetching, commits }) => {
   )
 }
 
-const mapStateToProps = createStructuredSelector({
-  isFetching: areCommitsFetchingSelector,
-  commits: getCommitsSelector,
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchCommitsStartAsync: repoInfo => dispatch(fetchCommitsStartAsync(repoInfo)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchCommits);
+export default SearchCommits;
