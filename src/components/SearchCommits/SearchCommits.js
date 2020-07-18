@@ -57,12 +57,12 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
           <div className='commits-container'>
             { commits.length ? <div>This repo has a total of { commits.length } commits.</div> : null }
             {
-              commits.map((commit, index) =>
+              commits.map(({ commit, author }, index) =>
                 <div key={ index } className='commit'>
-                  <div className='commit-message'>{ commit.commit.message }</div>
+                  <div className='commit-message'>{ commit.message }</div>
                   <div className='author-and-time'>
-                    <img src={ commit.author && commit.author.avatar_url } className='author-avatar' alt='avatar' />
-                    <div className='commit-time'>{ commit.author && commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
+                    <img src={ author && author.avatar_url } className='author-avatar' alt='avatar' />
+                    <div className='commit-time'>{ author && author.login } commited { ms(Date.now() - new Date(commit.author.date), { long: true }) } ago</div>
                   </div>
                 </div>
               )
