@@ -10,10 +10,12 @@ import Spinner from '../Spinner/Spinner';
 
 const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFetching, commits, rateLimit }) => {
   const [repoDetails, setRepoDetails] = useState({ owner: '', repo: '' });
+  const [filteredCommits, setFilteredCommits] = useState([]);
 
   useEffect(() => {
     fetchRateLimitStartAsync();
-  }, [fetchRateLimitStartAsync]);
+    setFilteredCommits(commits);
+  }, [fetchRateLimitStartAsync, commits]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -42,6 +44,10 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
     setRepoDetails({ ...repoDetails, [name]: value });
   }
 
+  const handleFilterCommits = ({ target: { value } }) => {
+    setFilteredCommits(commits.filter(({ commit }) => commit.message.toLowerCase().includes((value).toLowerCase())));
+  }
+
   return (
     <div className='container'>
       <div className='form-container'>
@@ -55,9 +61,13 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
       {
         isFetching ? <Spinner /> :
           <div className='commits-container'>
-            { commits.length ? <div>This repo has a total of { commits.length } commits on the master branch.</div> : null }
+            { commits.length ?
+              <div>
+                <div>This repo has a total of { commits.length } commits on the master branch.</div>
+                <input onChange={ handleFilterCommits } className='filter-commits' type='text' name='filterCommits' placeholder='Filter commits' />
+              </div> : null }
             {
-              commits.map(({ commit, author }, index) =>
+              filteredCommits.map(({ commit, author }, index) =>
                 <div key={ index } className='commit'>
                   <div className='commit-message'>{ commit.message }</div>
                   <div className='author-and-time'>
