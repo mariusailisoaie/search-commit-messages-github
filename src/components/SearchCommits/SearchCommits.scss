@@ -10,6 +10,12 @@
 }
 
 .container {
+  .filter-commits {
+    @include input-styles();
+    margin: 20px 0 10px;
+    text-align: center;
+  }
+
   .form-container {
     width: 500px;
     margin: 0 auto;
