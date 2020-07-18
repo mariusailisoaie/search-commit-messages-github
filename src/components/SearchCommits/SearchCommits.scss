@@ -1,3 +1,14 @@
+@mixin input-styles {
+  width: 43%;
+  font-size: 16px;
+  color: #fff;
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
 .container {
   .form-container {
     width: 500px;
@@ -11,15 +22,12 @@
       display: flex;
       justify-content: space-evenly;
 
-      input {
-        width: 43%;
-        font-size: 16px;
-        color: #fff;
-        padding-bottom: 10px;
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
+      .owner-input {
+        @include input-styles();
+      }
+
+      .repo-input {
+        @include input-styles();
       }
     }
   }
