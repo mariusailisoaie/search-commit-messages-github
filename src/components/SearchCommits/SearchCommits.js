@@ -46,8 +46,8 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
     <div className='container'>
       <div className='form-container'>
         <form onSubmit={ handleSubmit }>
-          <input onChange={ handleChange } type='text' name='owner' placeholder='Owner' required />
-          <input onChange={ handleChange } type='text' name='repo' placeholder='Repo' required />
+          <input onChange={ handleChange } className='owner-input' type='text' name='owner' placeholder='Owner' required />
+          <input onChange={ handleChange } className='repo-input' type='text' name='repo' placeholder='Repo' required />
           <input type='submit' value='Submit' hidden />
         </form>
       </div>
@@ -55,7 +55,7 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
       {
         isFetching ? <Spinner /> :
           <div className='commits-container'>
-            { commits.length ? <div>This repo has a total of { commits.length } commits.</div> : null }
+            { commits.length ? <div>This repo has a total of { commits.length } commits on the master branch.</div> : null }
             {
               commits.map(({ commit, author }, index) =>
                 <div key={ index } className='commit'>
