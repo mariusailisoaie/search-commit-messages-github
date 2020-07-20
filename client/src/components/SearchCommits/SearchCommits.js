@@ -20,10 +20,10 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (rateLimit.rate.remaining === 0) {
+    if (rateLimit.remaining === 0) {
       addNotification(
         `API rate limit exceeded`,
-        `Unable to make more requests! Please try again in ${ new Date(new Date(rateLimit.rate.reset * 1000) - Date.now()).getMinutes() } minutes.`,
+        `Unable to make more requests! Please try again in ${ new Date(new Date(rateLimit.reset * 1000) - Date.now()).getMinutes() } minutes.`,
         'danger',
         'top',
         'center',
