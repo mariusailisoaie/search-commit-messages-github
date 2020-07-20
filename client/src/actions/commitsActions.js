@@ -17,26 +17,12 @@ export const fetchCommitsFailure = error => ({
 });
 
 export const fetchCommitsStartAsync = ({ owner, repo }) => {
-  const allCommits = [];
-
   return async dispatch => {
     dispatch(fetchCommitsStart());
 
     try {
-      const commits = await axios.get(`https://api.github.com/repos/${ owner }/${ repo }/commits?page=1&per_page=100`);
-
-      if (commits.headers.link) {
-        const linkLength = parseInt(commits.headers.link.split(',')[1].split('?page=')[1].split('&')[0]);
-
-        for (let i = 1; i < linkLength + 1; i++) {
-          const commitsPerPage = await axios.get(`https://api.github.com/repos/${ owner }/${ repo }/commits?page=${ i }&per_page=100`);
-          allCommits.push(commitsPerPage.data);
-        }
-
-        dispatch(fetchCommitsSuccess([...allCommits.flat()]));
-      } else {
-        dispatch(fetchCommitsSuccess([...commits.data]));
-      }
+      const commits = await axios.post(`https://search-commits-github-backend.netlify.app/.netlify/functions/api/getCommits`, { owner, repo });
+      dispatch(fetchCommitsSuccess(commits.data));
     } catch (error) {
       dispatch(fetchCommitsFailure(error));
     }

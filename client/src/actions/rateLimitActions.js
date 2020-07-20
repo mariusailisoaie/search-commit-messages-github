@@ -21,8 +21,8 @@ export const fetchRateLimitStartAsync = () => {
     dispatch(fetchRateLimitStart());
 
     try {
-      const rateLimit = await axios.get(`https://api.github.com/rate_limit`);
-      dispatch(fetchRateLimitSuccess(rateLimit.data))
+      const rateLimit = await axios.get(`https://search-commits-github-backend.netlify.app/.netlify/functions/api/getRateLimit`);
+      dispatch(fetchRateLimitSuccess(rateLimit.data));
     } catch (error) {
       dispatch(fetchRateLimitFailure(error));
     }
