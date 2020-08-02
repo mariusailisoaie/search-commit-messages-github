@@ -67,16 +67,17 @@ const SearchCommits = ({ fetchCommitsStartAsync, fetchRateLimitStartAsync, isFet
                 <input onChange={ handleFilterCommits } className='filter-commits' type='text' name='filterCommits' placeholder='Filter commits' />
               </div> : null }
             {
-              filteredCommits.map((commit, index) =>
-                <div key={ index } className='commit'>
-                  <div className='commit-message'>{ commit.commit.message }</div>
-                  <div className='author-time-changes'>
-                    <img src={ commit.author && commit.author.avatar_url } className='author-avatar' alt='avatar' />
-                    <div className='commit-time'>{ commit.author && commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
-                    <a className='see-changes' href={ commit.html_url } target='_blank' rel='noopener noreferrer'>see changes on github</a>
+              filteredCommits.length ?
+                filteredCommits.map((commit, index) =>
+                  <div key={ index } className='commit'>
+                    <div className='commit-message'>{ commit.commit.message }</div>
+                    <div className='author-time-changes'>
+                      <img src={ commit.author && commit.author.avatar_url } className='author-avatar' alt='avatar' />
+                      <div className='commit-time'>{ commit.author && commit.author.login } commited { ms(Date.now() - new Date(commit.commit.author.date), { long: true }) } ago</div>
+                      <a className='see-changes' href={ commit.html_url } target='_blank' rel='noopener noreferrer'>see changes on github</a>
+                    </div>
                   </div>
-                </div>
-              )
+                ) : <div>Repo not found...</div>
             }
           </div>
       }
